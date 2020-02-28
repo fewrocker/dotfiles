@@ -47,5 +47,5 @@
 [branch "master"]
   mergeoptions = --no-edit
 [user]
-	email = santos.felipe13@gmail.com
-	name = Felipe Santos
+	email = Santos
+	name = Felipe
