@@ -5,3 +5,157 @@ alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/download
 
 # Quickly serve the current directory as HTTP
 alias serve='ruby -run -e httpd . -p 8000'  # Or python -m SimpleHTTPServer :)
+
+alias o="nautilus ."
+
+# Docker commands
+alias dcr="docker-compose run"
+alias dcu="docker-compose up"
+alias dcb="docker-compose build"
+alias dcd="docker-compose down; rm tmp/pids/server.pid"
+alias rdcr="docker-compose run --rm app"
+
+# Misc
+xlnt () {dcr yarn lint $1 --fix; dcr yarn run lint:css $1 --fix}
+
+# Rails commands
+alias rdbm="rails db:migrate"
+alias rdbr="rails db:rollback"
+alias rdbms="rails db:migrate:status"
+alias rx="rails db:drop db:create db:migrate db:seed"
+alias rc="rails db:drop db:create"
+
+# Platform commands
+alias dumprc1="pg_restore -h localhost -p 3012 -U postgres -d rc1_development ~/Desktop/rc1.dump"
+alias dumprc2="pg_restore -h localhost -p 3022 -U postgres -d rc2_development ~/Desktop/rc2.dump"
+alias ddc="sudo docker-compose run --rm app rake db:drop db:create"
+alias dockerx="sudo gpasswd -a $USER docker && newgrp docker"
+alias dumplrc2='rm -f ~/Desktop/rc2.dump && cd ~/Downloads && DUMPFILE="$(date +'%Y%m%d0915.dump')" && mv $DUMPFILE ~/Desktop/rc2.dump && rock rc2'
+alias c="rails c"
+alias sc="rails c --sandbox"
+alias s="rails s"
+alias bi="bundle install"
+alias ys="yarn start"
+alias yi="yarn install"
+alias yb="yarn build"
+
+# Git commands
+alias ga="git add"
+alias gc="git commit"
+alias gst="git status"
+alias gll="git pull"
+alias gllr="git pull --rebase"
+alias gp="git push"
+alias gco="git checkout"
+alias gf="git fetch"
+alias gm="git merge"
+alias gr="git rebase"
+alias grs="git reset"
+alias gs="git stash"
+alias gsa="git stash apply"
+alias gl="git log"
+alias glo="git log --oneline"
+alias gb="git branch"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gcp="git cherry-pick"
+alias gca="git commit --amend --no-edit"
+gri () { git rebase -i @~"$1"}
+grh () { git reset HEAD~"$1"}
+gfc () { git diff-tree --no-commit-id --name-only -r "$1"}
+gbg () { git branch | grep "$1" }
+alias gcc='LASTCOMMIT="$(git rev-list --simplify-by-decoration -1 HEAD)" && LASTMASTER="$(git rev-list --simplify-by-decoration -1 origin/master)" && COUNT="$(git rev-list --count $LASTMASTER..$LASTCOMMIT)" && echo $COUNT'
+alias gccd='LASTCOMMIT="$(git rev-list --simplify-by-decoration -1 HEAD)" && LASTMASTER="$(git rev-list --simplify-by-decoration -1 origin/develop)" && COUNT="$(git rev-list --count $LASTMASTER..$LASTCOMMIT)" && echo $COUNT'
+alias gric='LASTCOMMIT="$(git rev-list --simplify-by-decoration -1 HEAD)" && LASTMASTER="$(git rev-list --simplify-by-decoration -1 origin/master)" && COUNT="$(git rev-list --count $LASTMASTER..$LASTCOMMIT)" && gri $COUNT'
+alias file_names='git diff --name-only HEAD~$(gcc) HEAD'
+alias spec_check='rm ~/Desktop/tools/spec_checker/files.txt && echo $(file_names) >> ~/Desktop/tools/spec_checker/files.txt && ruby ~/Desktop/tools/spec_checker/spec_check.rb'
+mdiff () { git diff master HEAD -- $1 }
+spec () {
+  rm ~/Desktop/tools/spec_file/files.txt
+  echo $1 >> ~/Desktop/tools/spec_file/files.txt
+  output=$(ruby ~/Desktop/tools/spec_file/spec_file.rb)
+  echo "$output"
+  dcr rspec $output
+}
+
+alias monitor-locks="cd ~/Desktop/lock-monitoring && ruby script.rb"
+
+# Navigation
+alias nt='echo -n $PWD | clip.exe ; cd /mnt/c ; cmd.exe /c wt.exe -w 0 nt ; cd - > /dev/null'
+rock () { cd ~ && cd code && cd fewrocker && cd rock && cd "$1" }
+alias multas="cd ~/code/fewrocker/novamente/multas-app"
+alias youwe="cd ~/code/fewrocker/novamente/youwe"
+alias mdr="cd ~/code/fewrocker/novamente/midia-de-rua"
+alias umani="cd ~/code/fewrocker/novamente/umani"
+alias invoo="cd ~/code/fewrocker/novamente/invoo"
+alias masterbi="cd ~/code/fewrocker/masterbi-app"
+alias luna="cd ~/code/fewrocker/few/lunacali-blog"
+alias lasto="cd ~/code/fewrocker/novamente/lasto-all"
+alias nedia="cd ~/code/fewrocker/novamente/nedia"
+alias novamente="cd ~/code/fewrocker/novamente"
+alias club="cd ~/code/fewrocker/novamente/clube-do-estudante"
+alias clubb="cd ~/code/fewrocker/novamente/clube-do-estudante-student"
+alias zoom="cd ~/code/fewrocker/novamente/zoom-motors"
+alias rdb="cd ~/code/fewrocker/novamente/rdb-app"
+alias pass="cd ~/code/fewrocker/novamente/nuflowpass"
+alias ticket="cd ~/code/fewrocker/novamente/ticketeria"
+alias boilerplate="cd ~/code/fewrocker/novamente/rails-devise-api-boilerplate"
+alias clube="cd ~/code/fewrocker/niare/clubedoestudante"
+alias blomia="cd ~/code/fewrocker/blomia/blomia-api"
+alias jenner="cd ~/code/fewrocker/novamente/jenner"
+alias yoga="cd ~/code/fewrocker/novamente/yoga"
+alias letmeask="cd ~/code/fewrocker/nlw/letmeask"
+alias freelas="cd ~/code/fewrocker/freelas"
+alias ceapi="cd ~/code/fewrocker/novamente/clube-do-estudante"
+alias cefront="cd ~/code/fewrocker/novamente/clube-do-estudante-student"
+alias ag="cd ~/code/fewrocker/agtech/agtechgarage"
+alias bp="cd ~/code/fewrocker/bepresent/bp-site"
+alias wagon="cd ~/code/fewrocker/wagon"
+alias rc2="cd ~/code/fewrocker/rock/rc2"
+alias tapa="cd ~/code/fewrocker/tapgoods/tapgoods_rails_api"
+alias tapf="cd ~/code/fewrocker/tapgoods/tapgoods_front_end"
+alias tapc="cd ~/code/fewrocker/tapgoods/customer_portal"
+# Staircase rebasing (src -> next)
+grist () {
+  gco $2
+  C2=git rev-list --simplify-by-decoration -2 HEAD | sed -n '1p'
+  C1=git rev-list --simplify-by-decoration -2 HEAD | sed -n '2p'
+  COMMITS=( $( git log --decorate --pretty=format:"%h" --no-patch --reverse $C1..$C2 ) )
+
+  bkp="$2-bkp"
+  gb -m $bkp
+  gco $1
+  gco -b $2
+
+  for i in "${COMMITS[@]}"; do git cherry-pick $i; done
+  gr $1
+  gb -d $bkp
+}
+
+# Other services
+alias sguard="dcr bundle exec guard"
+
+# General commands
+alias zs="source ~/.zshrc"
+killport () {  fuser -k $1/tcp }
+
+#Helpers
+alias fixbt="sudo systemctl restart bluetooth"
+
+#Dotnet
+dnt () { dotnet test --filter $1 }
+alias dnr="dotnet watch --project src/WebApps/Marketplace.API run"
+alias dnb="dotnet build"
+alias dncb="dotnet clean && dotnet build"
+alias dnseed="dotnet ef --startup-project src/WebApps/Marketplace.API database drop --project src/Infrastructure/Marketplace.Core.Database --context MarketplaceContext && sudo -u postgres psql -U postgres -c "CREATE DATABASE marketplace" && pg_restore -h localhost -p 5432 -U postgres -d marketplace src/Infrastructure/Marketplace.Core.Database/sql/seed/2021-02-25.dump"
+alias inotbug="sudo sysctl -p"
+
+#Heroku
+herokudumprestore () { pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d $1 latest.dump }
+alias hdc="heroku pg:backups:capture"
+alias hdd="heroku pg:backups:download"
+
+alias tilt=/home/linuxbrew/.linuxbrew/bin/tilt
+
+pod () { POD_NAME="$(tilt get kubernetesdiscovery "$1" -ojsonpath='{.status.pods[0].name}')" }
+trun () { kubectl exec "$POD_NAME" -- $1 }
